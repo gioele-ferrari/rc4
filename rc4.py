@@ -60,7 +60,9 @@ def PRNG(scheduler):
 
 '''
     Cifratura del testo in chiaro usando RC4.
-    La funzione usa .encode() che trasformare in un oggetto bytes
+    La funziona sfrutta .encode() per trasformare in byte il testo
+    vengono poi chiamate KSA e PRNG e successivamente si cifrano i
+    byte e si genera una stringa cifrata unica.
 '''
 def encrypt(plain_text, key):
     plain_text = plain_text.encode()
@@ -77,6 +79,10 @@ def encrypt(plain_text, key):
 
 '''
     Decifratura del testo cifrato usando RC4.
+    La funzione crea una lista di byte e trasforma la chiave con .encode()
+    in byte, vengono chiamate KSA e PRNG per poi creare il testo in chiaro
+    eseguendo uno XOR tra il byte cifrato e la keystream, si unisce il tutto
+    con un .join.
 '''
 def decrypt(cipher_text, key):
     cipher_bytes = list(bytes.fromhex(cipher_text))
@@ -91,6 +97,8 @@ def decrypt(cipher_text, key):
 
 '''
     Funzione principale per testare la cifratura e decifratura.
+    Vengono gestite le due opzioni principali e nel caso in cui
+    venga scelta una opzione inesistente viene segnalato.
 '''
 if __name__ == "__main__":
     if sys.argv[1] in options:
