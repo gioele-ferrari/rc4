@@ -4,7 +4,7 @@ Questa implementazione in Python del **cifrario RC4** include funzionalità di *
 
 ---
 
-## 🔧 **Struttura del Progetto**
+## **Struttura del Progetto**
 
 1. **Key Scheduling Algorithm (KSA):** Inizializza il vettore `scheduler` in base alla chiave.
 2. **Pseudo-Random Number Generator (PRNG):** Genera il keystream usato per la cifratura e la decifratura.
@@ -13,18 +13,22 @@ Questa implementazione in Python del **cifrario RC4** include funzionalità di *
 
 ---
 
-## 🔢 **Algoritmi Principali**
+## **Funzionalità principali**
 
-### **1. Key Scheduling Algorithm (KSA)**
+### **1. Decifratura**
 
-Inizializza il vettore `scheduler` con una permutazione basata sulla chiave.
+L'utente può interagire con il programma per decifrare con il seguente comando: `python3 rc4.py -d`.
 
-### **2. Pseudo-Random Number Generator (PRNG)**
+### **2. Cifratura**
 
-Genera il keystream utilizzato nella cifratura/decifratura.
+L'utente può interagire con il programma per cifrare con il seguente comando: `python3 rc4.py -c`.
 
 ---
 
-## 📋 **Note**
+## **Testing**
+
+Sono stati eseguiti test sul funzionamento del cifrario, attraverso esempi proposti da Wikipedia, nella sezione [Test vectors]("https://en.wikipedia.org/wiki/RC4").
+
+## **Note**
 
 RC4 non è più considerato sicuro a causa di vulnerabilità note. Come la presenza di regolarità
