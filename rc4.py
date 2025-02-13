@@ -60,19 +60,18 @@ def PRNG(scheduler):
 
 '''
     Cifratura del testo in chiaro usando RC4.
+    La funzione usa .encode() che trasformare in un oggetto bytes
 '''
 def encrypt(plain_text, key):
-    plain_text = [ord(char) for char in plain_text]
-    key = [ord(char) for char in key]
+    plain_text = plain_text.encode()
+    key = key.encode()
 
     scheduler = KSA(key)
     keystream = PRNG(scheduler)
-    cipher_text = ''
 
-    for byte in plain_text:
-        cipher_byte = byte ^ next(keystream)
-        cipher_text += f'{cipher_byte:02X}'
-
+    cipher_bytes = bytes([byte ^ next(keystream) for byte in plain_text])
+    cipher_text = cipher_bytes.hex().upper()
+    
     return cipher_text
 
 
@@ -80,17 +79,12 @@ def encrypt(plain_text, key):
     Decifratura del testo cifrato usando RC4.
 '''
 def decrypt(cipher_text, key):
-    # Prende i valori due a due dal testo e li trasforma in byte
-    cipher_bytes = [int(cipher_text[i:i+2], 16) for i in range(0, len(cipher_text), 2)]
-    key = [ord(char) for char in key]
+    cipher_bytes = list(bytes.fromhex(cipher_text))
+    key = key.encode()
 
     scheduler = KSA(key)
     keystream = PRNG(scheduler)
-    plain_text = ''
-
-    for byte in cipher_bytes:
-        plain_char = chr(byte ^ next(keystream))
-        plain_text += plain_char
+    plain_text = ''.join([chr(byte ^ next(keystream)) for byte in cipher_bytes])
     
     return plain_text
 
@@ -104,8 +98,8 @@ if __name__ == "__main__":
         input_key = input("[Key]: ")
 
         if sys.argv[1] == "-d":
-            print(decrypt(cipher_text=input_text, key=input_key))    
+            print(f'[Plain Text]: {decrypt(cipher_text=input_text, key=input_key)}')    
         else:
-            print(encrypt(plain_text=input_text, key=input_key))    
+            print(f'[Cipher Text]: {encrypt(plain_text=input_text, key=input_key)}')    
     else:
         print("Specifica una opzione valida (-d, -e)")
